@@ -1,4 +1,4 @@
-package com.rest_api.fs14backend.Category;
+package com.rest_api.fs14backend.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

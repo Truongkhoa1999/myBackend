@@ -1,7 +1,7 @@
-package com.rest_api.fs14backend.Products;
+package com.rest_api.fs14backend.products;
 
-import com.rest_api.fs14backend.Category.Category;
-import com.rest_api.fs14backend.Category.CategoryService;
+import com.rest_api.fs14backend.category.Category;
+import com.rest_api.fs14backend.category.CategoryService;
 import com.rest_api.fs14backend.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +33,18 @@ public class ProductController {
         }
         return product;
     }
+
+    @PutMapping("/id/{id}")
+    public Product updateProductQuantityById(@PathVariable UUID id, @RequestParam int quantity){
+        Product product = productService.findProductById(id);
+        if (product == null) {
+            throw new NotFoundException("ID not found");
+        }
+        product.setQuantity(quantity);
+        productService.saveProductQuantity(product);
+        return product;
+    }
+
 
     @GetMapping("/title/{title}")
     public Product getProductByTitle(@PathVariable String title) {

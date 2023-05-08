@@ -1,4 +1,4 @@
-package com.rest_api.fs14backend.Products;
+package com.rest_api.fs14backend.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +16,6 @@ public class ProductService {
     }
     public Product findProductById (UUID id) { return productRepository.findById(id).orElse(null);}
     public Product createProduct (Product product) {return productRepository.save(product);}
+    public Product saveProductQuantity(Product product) {return productRepository.save(product);}
     public void deleteProductById(UUID id) {productRepository.deleteById(id);}
 }

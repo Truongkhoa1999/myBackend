@@ -1,4 +1,4 @@
-package com.rest_api.fs14backend.Category;
+package com.rest_api.fs14backend.category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
