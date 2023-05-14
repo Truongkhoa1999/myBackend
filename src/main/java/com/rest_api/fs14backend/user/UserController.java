@@ -8,7 +8,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -30,33 +32,23 @@ public class UserController {
         System.out.println("we are inside users");
         return userRepository.findAll();
     }
-//    @PostMapping("/")
-//    public User createOne (@RequestBody User user){
-//        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()));
-//        userService.createOne(newUser);
-//
-//        return newUser;
-//    }
+@PostMapping("/signin")
+public Map<String, String> login(@RequestBody AuthenticateRequest authenticateRequest){
+    authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                    authenticateRequest.getUsername(),
+                    authenticateRequest.getPassword()
+            )
+    );
 
-    @PostMapping("/signin")
-    public String login(@RequestBody AuthenticateRequest authenticateRequest){
-
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authenticateRequest.getUsername(),
-                        authenticateRequest.getPassword()
-                )
-        );
-
-        User user = userRepository.findByUsername(authenticateRequest.getUsername());
-
-        return jwtUtils.generateToken(user);
-    }
-
+    User user = userRepository.findByUsername(authenticateRequest.getUsername());
+    Map<String, String> token = new HashMap<>();
+    token.put("token", jwtUtils.generateToken(user));
+    return token;
+}
     @PostMapping("/signup")
     public User signup(@RequestBody User user) {
-
-        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getFirstName());
+        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getFirstName(), User.Role.ADMIN, user.getAvatar());
         userService.createOne(newUser);
         return newUser;
     }

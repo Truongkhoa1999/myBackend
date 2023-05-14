@@ -1,5 +1,6 @@
 package com.rest_api.fs14backend.securityconfig;
 
+import com.rest_api.fs14backend.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,26 +35,17 @@ public class SecurityConfig {
         http
                 .csrf()
                 .disable()
-//                .authorizeHttpRequests()
-//                .requestMatchers("/signup", "/signin")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/signup", "/signin", "api/v1/products/","api/v1/products/id/{id}", "api/v1/products/search")
+                .permitAll()
+                .requestMatchers("/users","api/v1/products/restore/{id}","api/v1/products/delete/{id}").hasRole(User.Role.ADMIN.toString())
+                .anyRequest()
+                .authenticated()
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .httpBasic(withDefaults()).formLogin();
-
-//        http
-//                .csrf().disable()
-//                .authorizeHttpRequests()
-//                .anyRequest().permitAll()
-//                .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .httpBasic().disable()
-//                .formLogin().disable();
 
         return http.build();
     }

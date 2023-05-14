@@ -22,18 +22,27 @@ public class User {
     @Column(unique = true)
     private String username;
 
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private String firstName;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+    @Column(nullable = false, columnDefinition = "varchar(200)")
+    private String avatar;
+public enum Role {
+    ADMIN, USER
+}
 
 
-
-    public User(String username, String password, String firstName){
+    public User(String username, String password, String firstName, Role role, String avatar){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
+        this.role = role;
+        this.avatar=avatar;
     }
 }
