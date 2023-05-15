@@ -33,7 +33,8 @@ public class User {
     private Role role;
     @Column(nullable = false, columnDefinition = "varchar(200)")
     private String avatar;
-public enum Role {
+
+    public enum Role {
     ADMIN, USER
 }
 

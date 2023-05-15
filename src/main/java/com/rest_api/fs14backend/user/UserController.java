@@ -32,7 +32,8 @@ public class UserController {
         System.out.println("we are inside users");
         return userRepository.findAll();
     }
-@PostMapping("/signin")
+    @CrossOrigin(origins = {"http://localhost:5173"}, allowCredentials = "false")
+    @PostMapping("/signin")
 public Map<String, String> login(@RequestBody AuthenticateRequest authenticateRequest){
     authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(

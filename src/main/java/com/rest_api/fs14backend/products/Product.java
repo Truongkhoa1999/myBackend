@@ -15,7 +15,6 @@ import java.util.UUID;
 @Table(name = "product")
 @Data
 @NoArgsConstructor
-
 public class Product {
     @Id
     @GeneratedValue

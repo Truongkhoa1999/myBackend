@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/products")
+
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -77,7 +78,7 @@ public class ProductController {
     }
 
     //Create
-    @PostMapping("/")
+    @PostMapping("/add/")
     public Product createProduct(@RequestBody ProductDTO productDTO) {
         UUID categoryId = productDTO.getCategoryId();
         Category category = categoryService.findCategoryById(categoryId);
@@ -86,18 +87,15 @@ public class ProductController {
     }
 
     //Delete
-    @CrossOrigin(origins = {"http://localhost:5173"}, methods = {RequestMethod.PUT}, allowCredentials = "true")
     @PutMapping("/delete/{id}")
     public void deleteProductById(@PathVariable UUID id) {
         productService.softDeleteProductById(id);
     }
 
-    @CrossOrigin(origins = {"http://localhost:5173"}, methods = {RequestMethod.PUT}, allowCredentials = "true")
     @PutMapping("/restore/{id}")
     public void restoreProductById(@PathVariable UUID id) {
         productService.restoreProductById(id);
     }
-
 
 }
 
