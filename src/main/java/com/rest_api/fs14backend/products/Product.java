@@ -34,6 +34,7 @@ public class Product {
     @Column(nullable = false, columnDefinition = "varchar(200)")
     private String thumbnail;
 
+
     @ElementCollection
     @Column(nullable = false)
     private List<String> images;

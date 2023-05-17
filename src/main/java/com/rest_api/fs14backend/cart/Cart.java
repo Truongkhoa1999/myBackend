@@ -1,6 +1,7 @@
 package com.rest_api.fs14backend.cart;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
@@ -8,20 +9,33 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name = "carts")
+
 @Data
 @NoArgsConstructor
+@Entity(name = "cart")
+@Table(name = "cart")
 public class Cart {
     @Id
     @GeneratedValue
     @UuidGenerator
-    @Column(name="cartId")
-    private UUID id;
+    private UUID cartId;
+    @Column(nullable = false)
+    private String title;
+    @Column(nullable = false)
+    private int quantity;
+    @Column(nullable = false)
+    private int price;
+    private UUID userId;
+    private UUID productId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "cartId")
-    private List<CartItem> items;
+    public Cart(int price, int quantity, String title, UUID userId,UUID productId) {
+        this.price =price;
+        this.quantity =quantity;
+        this.title =title;
+        this.userId =userId;
+        this.productId = productId;
+    }
 
-    // Constructors, getters, and setters
+//    public Cart(double price, int quantity, String title, UUID userId) {
+//    }
 }

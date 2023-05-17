@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/products")
-
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -78,7 +77,7 @@ public class ProductController {
     }
 
     //Create
-    @PostMapping("/add/")
+    @PostMapping("/add")
     public Product createProduct(@RequestBody ProductDTO productDTO) {
         UUID categoryId = productDTO.getCategoryId();
         Category category = categoryService.findCategoryById(categoryId);
@@ -86,7 +85,7 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
-    //Delete
+    //Update
     @PutMapping("/delete/{id}")
     public void deleteProductById(@PathVariable UUID id) {
         productService.softDeleteProductById(id);
