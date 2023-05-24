@@ -51,11 +51,29 @@ public class ProductService {
         product.setRemoved(true);
         productRepository.save(product);
     }
-
+    @Transactional
+    public void softDeleteProducts (){
+        List<Product> products = productRepository.findAll();
+        for(Product product : products){
+            product.setRemoved(true);
+            productRepository.save(product);
+        }
+    }
     @Transactional
     public void restoreProductById(UUID id) {
         Product product = productRepository.findById(id).orElse(null);
         product.setRemoved(false);
         productRepository.save(product);
     }
+
+    @Transactional
+    public void restoreProducts (){
+        List<Product> products = productRepository.findAll();
+        for(Product product : products){
+            product.setRemoved(false);
+            productRepository.save(product);
+        }
+    }
+
+
 }

@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductDTO {
     private UUID categoryId;
+    private UUID staticsId;
     private String title;
     private BigDecimal price;
     private int quantity;

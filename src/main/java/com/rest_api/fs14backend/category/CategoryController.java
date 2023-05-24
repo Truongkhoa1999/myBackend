@@ -8,16 +8,19 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/categories")
 public class CategoryController {
-    @Autowired CategoryService categoryService;
+    @Autowired
+    CategoryService categoryService;
     @Autowired
     private CategoryRepository categoryRepository;
-@GetMapping("/")
-    public List<Category> getCategories (){
-        List<Category> categories =categoryService.findAllCategories();
+
+    @GetMapping("/")
+    public List<Category> getCategories() {
+        List<Category> categories = categoryService.findAllCategories();
         return categories;
     }
+
     @PostMapping("/")
-    public Category createCategory (@RequestBody Category category) {
+    public Category createCategory(@RequestBody Category category) {
         return categoryRepository.save(category);
     }
 }

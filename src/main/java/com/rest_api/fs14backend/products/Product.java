@@ -1,6 +1,7 @@
 package com.rest_api.fs14backend.products;
 
 import com.rest_api.fs14backend.category.Category;
+import com.rest_api.fs14backend.statics.Statics;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,18 +21,18 @@ public class Product {
     @GeneratedValue
     @UuidGenerator
     private UUID id;
-    @Column(nullable = false, columnDefinition = "varchar(100)")
+    @Column(nullable = false, columnDefinition = "varchar(MAX)")
     private String title;
     @Column(nullable = false, columnDefinition = "Decimal(10,2)")
     private BigDecimal price;
     @Column(nullable = false, columnDefinition = "int")
     private int quantity;
 
-    @Column(nullable = false, columnDefinition = "varchar(100)")
+    @Column(nullable = false, columnDefinition = "varchar(MAX)")
     private String brand;
-    @Column(nullable = false, columnDefinition = "varchar(200)")
+    @Column(nullable = false, columnDefinition = "varchar(MAX)")
     private String description;
-    @Column(nullable = false, columnDefinition = "varchar(200)")
+    @Column(nullable = false, columnDefinition = "varchar(MAX)")
     private String thumbnail;
 
 
@@ -44,7 +45,8 @@ public class Product {
 //    Other entities
     @ManyToOne(optional = false)
     private Category category;
-
+    @ManyToOne(optional = true)
+    private Statics statics;
 
     public Product(
             String title,
@@ -55,11 +57,12 @@ public class Product {
             String thumbnail,
             List<String> images,
             boolean isRemoved,
-            Category category) {
+            Category category,Statics statics) {
         this.title = title;
         this.price = price;
         this.quantity =quantity;
         this.category = category;
+        this.statics = new Statics();
         this.brand = brand;
         this.description = description;
         this.thumbnail = thumbnail;

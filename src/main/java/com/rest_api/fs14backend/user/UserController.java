@@ -32,26 +32,30 @@ public class UserController {
         System.out.println("we are inside users");
         return userRepository.findAll();
     }
-    @CrossOrigin(origins = {"http://localhost:5173"}, allowCredentials = "false")
-    @PostMapping("/signin")
-public Map<String, String> login(@RequestBody AuthenticateRequest authenticateRequest){
-    authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                    authenticateRequest.getUsername(),
-                    authenticateRequest.getPassword()
-            )
-    );
 
-    User user = userRepository.findByUsername(authenticateRequest.getUsername());
-    Map<String, String> token = new HashMap<>();
-    token.put("token", jwtUtils.generateToken(user));
-    return token;
-}
-    @PostMapping("/signup")
-    public User signup(@RequestBody User user) {
-        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getFirstName(), User.Role.ADMIN, user.getAvatar());
-        userService.createOne(newUser);
-        return newUser;
+    @PostMapping("/signin")
+    public Map<String, String> login(@RequestBody AuthenticateRequest authenticateRequest) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authenticateRequest.getUsername(),
+                        authenticateRequest.getPassword()
+                )
+        );
+        User user = userRepository.findByUsername(authenticateRequest.getUsername());
+        Map<String, String> token = new HashMap<>();
+        token.put("token", jwtUtils.generateToken(user));
+        return token;
     }
+
+    @PostMapping("/signup")
+    public Map<String, String> signup(@RequestBody User user) {
+        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getFirstName(), User.Role.USER, user.getAvatar());
+        userService.createOne(newUser);
+
+        Map<String, String> token = new HashMap<>();
+        token.put("token", jwtUtils.generateToken(newUser));
+        return token;
+    }
+
 
 }

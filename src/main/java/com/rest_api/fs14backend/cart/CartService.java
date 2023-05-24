@@ -16,6 +16,10 @@ public class CartService {
     public List<Cart> findAllCarts() {
         return cartRepository.findAll();
     }
+    public List<Cart> findCartsByUserId(UUID userId) {
+        return cartRepository.findAllByUserId(userId);
+    }
+
     public Cart findCartById(UUID id) {
         return cartRepository.findById(id).orElse(null);
     }
@@ -25,5 +29,7 @@ public class CartService {
     public void deleteCartById(UUID id) {
         cartRepository.deleteById(id);
     }
+
+
 
 }

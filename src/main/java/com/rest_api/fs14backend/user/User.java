@@ -31,7 +31,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-    @Column(nullable = false, columnDefinition = "varchar(200)")
+    @Column(nullable = true, columnDefinition = "varchar(200)")
     private String avatar;
 
     public enum Role {
