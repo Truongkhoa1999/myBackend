@@ -1,6 +1,7 @@
 package com.rest_api.fs14backend.statics;
 
 import com.rest_api.fs14backend.category.Category;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -50,7 +50,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public Map<String, String> signup(@RequestBody User user) {
-        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getFirstName(), User.Role.USER, user.getAvatar());
+        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getFirstName(), User.Role.ADMIN, user.getAvatar());
         userService.createOne(newUser);
 
         Map<String, String> token = new HashMap<>();
